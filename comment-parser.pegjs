@@ -1,7 +1,7 @@
 Start
   = Comment
 
-Character
+AnyCharacter
   = .
 
 Comment
@@ -12,10 +12,10 @@ LineTerminator
   = [\n\r\u2028\u2029]
 
 MultiLineComment
-  = "/*" (!"*/" Character)* "*/"
+  = "/*" (!"*/" AnyCharacter)* "*/"
 
 MultiLineCommentNoLineTerminator
-  = "/*" (!("*/" / LineTerminator) Character)* "*/"
+  = "/*" (!("*/" / LineTerminator) AnyCharacter)* "*/"
 
 SingleLineComment
-  = "//" (!LineTerminator Character)*
+  = "//" (!LineTerminator AnyCharacter)*
