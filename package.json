@@ -1,12 +1,12 @@
 {
   "name": "comment-parser",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "JS/C-style comment parser, generated with pegjs",
+  "main": "comment-parser.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node_modules/pegjs/bin/pegjs comment-parser.peg"
   },
-  "author": "",
+  "author": "Wells Johnston",
   "license": "ISC",
   "dependencies": {
     "pegjs": "^0.9.0"
