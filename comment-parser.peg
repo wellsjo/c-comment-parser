@@ -1,21 +1,21 @@
 Start
-  = Comment
-  
+  = Anything* Comment Anything*
+
+Anything
+  = .
+
 Comment
   = MultiLineComment
   / SingleLineComment
 
 MultiLineComment
-  = "/*" (!"*/" AnyCharacter)* "*/"
-  
+  = "/*" (!"*/" Anything)* "*/"
+
 MultiLineCommentNoLineTerminator
-  = "/*" (!("*/" / LineTerminator) AnyCharacter)* "*/"
-  
+  = "/*" (!("*/" / LineTerminator) Anything)* "*/"
+
 SingleLineComment
-  = "//" (!LineTerminator AnyCharacter)*
-  
+  = "//" (!LineTerminator Anything)*
+
 LineTerminator
   = [\n\r\u2028\u2029]
-  
-AnyCharacter
-  = .
