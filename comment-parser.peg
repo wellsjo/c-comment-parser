@@ -1,21 +1,40 @@
 Start
-  = Anything* Comment Anything*
+  = (WhiteSpace / LineTerminatorSequence / Comment / Character)*
 
-Anything
-  = .
+WhiteSpace "whitespace"
+  = "\t"
+  / "\v"
+  / "\f"
+  / " "
+  / "\u00A0"
+  / "\uFEFF"
+  / Zs
+
+LineTerminatorSequence "end of line"
+  = "\n"
+  / "\r\n"
+  / "\r"
+  / "\u2028"
+  / "\u2029"
 
 Comment
   = MultiLineComment
   / SingleLineComment
 
 MultiLineComment
-  = "/*" (!"*/" Anything)* "*/"
-
-MultiLineCommentNoLineTerminator
-  = "/*" (!("*/" / LineTerminator) Anything)* "*/"
+  = "/*" (!"*/" Character)* "*/"
 
 SingleLineComment
-  = "//" (!LineTerminator Anything)*
+  = "//" (!LineTerminator Character)*
+
+MultiLineCommentNoLineTerminator
+  = "/*" (!("*/" / LineTerminator) Character)* "*/"
+
+Character
+  = .
 
 LineTerminator
   = [\n\r\u2028\u2029]
+
+// Separator, Space
+Zs = [\u0020\u00A0\u1680\u2000-\u200A\u202F\u205F\u3000]

@@ -1,0 +1,46 @@
+/**
+ * Trending Content
+ * Returns visible videos that have the largest view percentage increase over
+ * the time period.
+ */
+
+SELECT
+  (100 * (P2.view_count - P1.view_count) / P1.view_count) AS result,
+
+// period 1
+FROM (
+  SELECT resource_id AS video_id,
+  SUM(count) AS view_count
+  FROM views
+  WHERE to_date(date, 'Dy, DD Mon YYYY') >= to_date('', 'Dy, DD Mon YYYY')
+  AND to_date(date, 'Dy, DD Mon YYYY') <= to_date('', 'Dy, DD Mon YYYY')
+  AND resource_type='video'
+  GROUP BY video_id
+) AS P1
+
+// period 2
+JOIN (
+  SELECT resource_id AS video_id,
+  SUM(count) AS view_count
+  FROM views
+  WHERE to_date(date, 'Dy, DD Mon YYYY') >= to_date('', 'Dy, DD Mon YYYY')
+  AND to_date(date, 'Dy, DD Mon YYYY') <= to_date('', 'Dy, DD Mon YYYY')
+  AND resource_type='video'
+  GROUP BY video_id
+) AS P2 ON (P1.video_id = P2.video_id)
+
+JOIN videos AS video
+  ON P1.video_id=video.id
+
+JOIN users AS usr
+  ON video.user_id=usr.id
+
+  /**
+   * hello world block comment
+   */
+
+// only show visible videos
+WHERE video.visibility=0
+
+ORDER BY result DESC
+LIMIT
